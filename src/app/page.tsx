@@ -1,425 +1,319 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import {
-  Sparkles,
-  Paintbrush,
-  Workflow,
-  ShoppingBag,
-  Building2,
-  Stethoscope,
-  GraduationCap,
-  UtensilsCrossed,
-  Plane,
-  Lock,
-  Eye,
-  Server,
-  ArrowRight,
-  Quote,
-} from 'lucide-react';
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' as const } },
-};
-
-const stagger = {
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const SERVICES = [
-  {
-    icon: Sparkles,
-    label: 'AI 자동 생성',
-    title: '업종별 맞춤 상세페이지를 자동으로 생성합니다',
-    description: '카테고리를 선택하고 핵심 정보만 입력하면, AI가 업종 특성에 맞는 전문가급 상세페이지를 설계하고 카피를 작성합니다. 수십 시간의 작업을 단 몇 분으로 압축합니다.',
-  },
-  {
-    icon: Paintbrush,
-    label: '실시간 편집',
-    title: '생성된 결과물을 자유롭게 수정하고 다듬습니다',
-    description: 'Puck 에디터 기반의 비주얼 편집 도구로 드래그 앤 드롭 수정이 가능합니다. 자연어로 수정 요청을 보내면 AI가 즉시 반영하는 Vibe Coding도 지원합니다.',
-  },
-  {
-    icon: Workflow,
-    label: '워크플로우 자동화',
-    title: '생성부터 배포까지 전체 과정을 자동화합니다',
-    description: '프로젝트 관리, 버전 이력, HTML 추출 및 배포까지 원스톱으로 처리합니다. 반복적인 작업을 제거하고 핵심 의사결정에만 집중할 수 있습니다.',
-  },
-];
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowRight, Sparkles, Zap, Code, LayoutTemplate } from "lucide-react";
+import { AuroraBackground } from "@/components/ui/AuroraBackground";
+import { BentoGrid, BentoGridItem } from "@/components/ui/BentoGrid";
+import { Meteors } from "@/components/ui/Meteors";
+import { useState, useEffect } from "react";
 
 const CATEGORIES = [
-  { icon: ShoppingBag, label: '이커머스', description: '상품 상세페이지' },
-  { icon: Building2, label: '부동산', description: '매물 소개' },
-  { icon: Stethoscope, label: '의료', description: '병원 홍보' },
-  { icon: GraduationCap, label: '교육', description: '강의 랜딩' },
-  { icon: UtensilsCrossed, label: '외식', description: '맛집 소개' },
-  { icon: Plane, label: '여행', description: '여행 상품' },
-];
-
-const TESTIMONIALS = [
   {
-    content: 'AutoPage로 상세페이지 제작 시간을 90% 이상 줄였습니다. AI가 업종 특성을 정확히 파악해서 전환율 높은 카피를 바로 뽑아줍니다. 이제 디자인 에이전시 없이도 충분합니다.',
-    name: '김도현',
-    role: '이커머스 사업부 팀장',
+    title: "이커머스",
+    description: "전환율이 40% 더 높은 상품 상세페이지",
+    header: (
+      <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/10 border border-white/5" />
+    ),
+    icon: <Sparkles className="h-4 w-4 text-violet-400" />,
   },
   {
-    content: 'AutoPage는 단순한 페이지 빌더가 아닙니다. AI가 고객 심리를 이해하고 설득 구조를 설계합니다. 도입 한 달 만에 전환율이 40% 올랐고, 운영 비용은 절반으로 줄었습니다.',
-    name: '박서연',
-    role: '스타트업 CEO',
-  },
-];
-
-const SECURITY_ITEMS = [
-  {
-    icon: Lock,
-    title: '데이터 암호화',
-    description: '전송 및 저장 시 업계 최고 수준의 암호화 적용',
+    title: "스타트업 & SaaS",
+    description: "혁신적인 기능을 명료하게 전달하는 소개 페이지",
+    header: (
+      <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/10 border border-white/5" />
+    ),
+    icon: <Zap className="h-4 w-4 text-cyan-400" />,
   },
   {
-    icon: Eye,
-    title: '접근 제어',
-    description: '적절한 권한을 가진 사용자만 데이터에 접근 가능',
+    title: "전문가 프로필",
+    description: "신뢰감을 주는 전문가 포트폴리오",
+    header: (
+      <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 border border-white/5" />
+    ),
+    icon: <LayoutTemplate className="h-4 w-4 text-amber-400" />,
   },
   {
-    icon: Server,
-    title: '클라우드 보안',
-    description: '보안 클라우드 아키텍처 기반 24시간 모니터링',
+    title: "학원 & 교육",
+    description: "수강생을 끌어모으는 강의 랜딩페이지",
+    header: (
+      <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-emerald-500/20 to-green-500/10 border border-white/5" />
+    ),
+    icon: <Code className="h-4 w-4 text-emerald-400" />,
   },
 ];
 
-export default function HomePage() {
+const STATS = [
+  { value: "5", unit: "min", label: "평균 생성 시간" },
+  { value: "11", unit: "+", label: "산업별 카테고리" },
+  { value: "50", unit: "+", label: "분석된 오픈소스" },
+  { value: "0", unit: "won", label: "초기 비용" },
+];
+
+function TypewriterEffect() {
+  const [typedText, setTypedText] = useState("");
+  const targetText =
+    "배경을 좀 더 신뢰감 있는 딥 네이비로 바꾸고, 헤드라인을 강조해줘.";
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setTypedText(targetText.slice(0, index));
+      index++;
+      if (index > targetText.length) {
+        clearInterval(interval);
+      }
+    }, 80);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <main className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-24 lg:pt-44 lg:pb-36">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
-            className="max-w-4xl"
-          >
-            <motion.h1
-              variants={fadeUp}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-balance"
+    <div className="font-mono text-sm text-green-400">
+      <span className="text-neutral-500 mr-2">{">"}</span>
+      {typedText}
+      <span className="animate-pulse ml-0.5">|</span>
+    </div>
+  );
+}
+
+function CountUp({ target, duration = 2000 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const increment = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [target, duration]);
+
+  return <span>{count}</span>;
+}
+
+export default function LandingPage() {
+  return (
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
+      {/* ===== HERO ===== */}
+      <AuroraBackground>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+          className="relative flex flex-col gap-6 items-center justify-center px-4 z-10"
+        >
+          <div className="badge mb-2">
+            <Sparkles className="w-3.5 h-3.5 mr-1.5 text-violet-400" />
+            AI-Powered Design Partner
+          </div>
+
+          <h1 className="text-4xl md:text-7xl font-bold text-white text-center tracking-tight leading-[1.1]">
+            기획 2일, 디자인 3일...
+            <br />
+            이 모든 과정을{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400">
+              단 5분으로.
+            </span>
+          </h1>
+
+          <p className="text-lg md:text-xl text-neutral-400 text-center max-w-2xl leading-relaxed">
+            GitHub 50+ 오픈소스 분석 기반,
+            <br className="hidden md:block" />
+            검증된 데이터로 설계된{" "}
+            <strong className="text-white">AI 디자인 파트너</strong>를
+            만나세요.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 mt-6">
+            <Link
+              href="/new"
+              className="btn-primary text-base md:text-lg px-8 py-4"
             >
-              AI가 설계하는
+              <Sparkles className="w-5 h-5" />
+              지금 무료로 시작하기
+            </Link>
+            <Link
+              href="/dashboard"
+              className="btn-secondary text-base md:text-lg px-8 py-4"
+            >
+              대시보드 이동
+              <ArrowRight className="w-4 h-4 ml-1" />
+            </Link>
+          </div>
+        </motion.div>
+      </AuroraBackground>
+
+      {/* ===== STATS BAR ===== */}
+      <section className="border-y border-white/5 bg-black/40 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {STATS.map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="text-center"
+            >
+              <div className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+                <CountUp target={parseInt(stat.value)} />
+                <span className="text-violet-400 text-2xl ml-1">
+                  {stat.unit}
+                </span>
+              </div>
+              <div className="text-sm text-neutral-500 mt-2">{stat.label}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== FEATURES BENTO GRID ===== */}
+      <section className="py-28 md:py-36 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(124,58,237,0.15),transparent)] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-20"
+          >
+            <span className="section-label">비즈니스 맞춤 설계</span>
+            <h2 className="section-title mt-4 mb-6">
+              11가지 산업군에 최적화된
               <br />
-              <span className="text-[rgb(var(--color-text-secondary))]">
-                전문가급 상세페이지
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">
+                팔리는 구조
               </span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-8 text-lg md:text-xl text-[rgb(var(--color-text-secondary))] max-w-2xl leading-relaxed"
-            >
-              업종별 맞춤 분석부터 설득 카피 작성, 시각 설계까지.
+            </h2>
+            <p className="text-lg text-neutral-400 max-w-xl mx-auto">
+              단순히 예쁜 페이지만 만들지 않습니다.
               <br />
-              수십 시간의 작업을 몇 분으로 압축합니다.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <Link href="/signup" className="btn-primary text-base px-8 py-3.5">
-                지금 시작하기
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="#features" className="btn-secondary text-base px-8 py-3.5">
-                서비스 알아보기
-              </Link>
-            </motion.div>
+              고객 심리를 관통하는 설득의 구조를 자동으로 설계합니다.
+            </p>
           </motion.div>
+
+          <BentoGrid>
+            {CATEGORIES.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                icon={item.icon}
+                className={i === 3 ? "md:col-span-2" : ""}
+              />
+            ))}
+          </BentoGrid>
         </div>
       </section>
 
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8"><div className="divider" /></div>
-
-      {/* Services Section */}
-      <section id="features" className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      {/* ===== VIBE CODING ===== */}
+      <section className="py-28 md:py-36 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent pointer-events-none" />
+        <Meteors number={15} />
+        <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-16 relative z-10">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={stagger}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex-1 space-y-8"
           >
-            <motion.span variants={fadeUp} className="section-label">
-              AutoPage의 핵심 기능
-            </motion.span>
-
-            <motion.div variants={fadeUp} className="mt-16 space-y-0">
-              {SERVICES.map((service, index) => {
-                const Icon = service.icon;
-                return (
-                  <motion.div
-                    key={service.label}
-                    variants={fadeUp}
-                    className="group border-t border-[rgb(var(--color-border))] py-12 lg:py-16"
-                  >
-                    <div className="grid lg:grid-cols-12 gap-6 lg:gap-12 items-start">
-                      <div className="lg:col-span-1">
-                        <span className="text-sm font-mono text-[rgb(var(--color-text-tertiary))]">
-                          0{index + 1}
-                        </span>
-                      </div>
-                      <div className="lg:col-span-4">
-                        <div className="flex items-center gap-3 mb-3">
-                          <Icon className="w-5 h-5 text-[rgb(var(--color-text-tertiary))]" />
-                          <span className="text-xs font-semibold uppercase tracking-wider text-[rgb(var(--color-text-tertiary))]">
-                            {service.label}
-                          </span>
-                        </div>
-                        <h3 className="text-xl lg:text-2xl font-semibold leading-snug text-white">
-                          {service.title}
-                        </h3>
-                      </div>
-                      <div className="lg:col-span-7">
-                        <p className="text-[rgb(var(--color-text-secondary))] leading-relaxed text-base lg:text-lg">
-                          {service.description}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8"><div className="divider" /></div>
-
-      {/* Categories Section */}
-      <section className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={stagger}
-          >
-            <motion.span variants={fadeUp} className="section-label">
-              지원 업종
-            </motion.span>
-            <motion.h2 variants={fadeUp} className="section-title mt-4">
-              11개 이상의 업종에
+            <span className="section-label">바이브 코딩</span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight tracking-tight">
+              &quot;좀 더 신뢰감 있게 바꿔줘&quot;
               <br />
-              최적화된 템플릿
-            </motion.h2>
-            <motion.p variants={fadeUp} className="section-subtitle mt-6">
-              각 업종의 고객 심리와 구매 동선을 분석한 전문 템플릿으로 시작합니다.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {CATEGORIES.map((cat) => {
-                const Icon = cat.icon;
-                return (
-                  <div
-                    key={cat.label}
-                    className="card p-6 text-center group cursor-pointer hover:bg-[rgb(var(--color-surface-hover))] transition-colors"
-                  >
-                    <Icon className="w-6 h-6 mx-auto mb-3 text-[rgb(var(--color-text-tertiary))] group-hover:text-white transition-colors" />
-                    <p className="text-sm font-semibold text-white mb-1">{cat.label}</p>
-                    <p className="text-xs text-[rgb(var(--color-text-tertiary))]">{cat.description}</p>
-                  </div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8"><div className="divider" /></div>
-
-      {/* Use Cases / Blog Section */}
-      <section id="cases" className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={stagger}
-          >
-            <motion.span variants={fadeUp} className="section-label">
-              활용 사례
-            </motion.span>
-            <motion.h2 variants={fadeUp} className="section-title mt-4">
-              실제 비즈니스에서
-              <br />
-              검증된 결과
-            </motion.h2>
-
-            <motion.div variants={fadeUp} className="mt-16 grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: '이커머스 상품 상세페이지 자동 생성으로 전환율 2.4배 향상',
-                  description: 'AI 기반 설득 카피와 시각 구조 설계로 고객의 구매 결정을 가속화합니다.',
-                  tag: '이커머스',
-                },
-                {
-                  title: '부동산 매물 소개 페이지 제작 시간 90% 절감',
-                  description: '매물 정보만 입력하면 투자 가치와 입지 조건을 강조한 고급 소개 페이지가 완성됩니다.',
-                  tag: '부동산',
-                },
-                {
-                  title: 'Vibe Coding으로 디자인 수정 비용 제로화',
-                  description: '자연어로 수정 요청만 보내면 AI가 즉시 반영합니다. 디자이너 없이도 원하는 결과를 얻습니다.',
-                  tag: 'Vibe Coding',
-                },
-              ].map((item) => (
-                <div key={item.title} className="card p-8 flex flex-col justify-between group cursor-pointer">
-                  <div>
-                    <span className="text-xs font-semibold text-[rgb(var(--color-text-tertiary))] uppercase tracking-wider">
-                      {item.tag}
-                    </span>
-                    <h3 className="text-lg font-semibold text-white mt-4 mb-3 leading-snug group-hover:text-[rgb(var(--color-primary))] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-[rgb(var(--color-text-secondary))] leading-relaxed">
-                      {item.description}
-                    </p>
-                  </div>
-                  <div className="mt-6 flex items-center gap-2 text-sm text-[rgb(var(--color-text-tertiary))] group-hover:text-white transition-colors">
-                    자세히 보기 <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8"><div className="divider" /></div>
-
-      {/* Testimonials Section */}
-      <section className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={stagger}
-          >
-            <motion.span variants={fadeUp} className="section-label">
-              고객 후기
-            </motion.span>
-            <motion.h2 variants={fadeUp} className="section-title mt-4">
-              파트너들의 이야기
-            </motion.h2>
-
-            <motion.div variants={fadeUp} className="mt-16 grid md:grid-cols-2 gap-8">
-              {TESTIMONIALS.map((t) => (
-                <div key={t.name} className="card p-10">
-                  <Quote className="w-8 h-8 text-[rgb(var(--color-border-hover))] mb-6" />
-                  <p className="text-lg text-[rgb(var(--color-text-secondary))] leading-relaxed mb-8">
-                    {t.content}
-                  </p>
-                  <div>
-                    <p className="font-semibold text-white">{t.name}</p>
-                    <p className="text-sm text-[rgb(var(--color-text-tertiary))] mt-0.5">{t.role}</p>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8"><div className="divider" /></div>
-
-      {/* Security Section */}
-      <section id="security" className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={stagger}
-          >
-            <motion.span variants={fadeUp} className="section-label">
-              보안
-            </motion.span>
-            <motion.h2 variants={fadeUp} className="section-title mt-4">
-              엔터프라이즈급 보안
-            </motion.h2>
-
-            <motion.div variants={fadeUp} className="mt-16 grid md:grid-cols-3 gap-8">
-              {SECURITY_ITEMS.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div key={item.title} className="flex gap-5">
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[rgb(var(--color-surface))] border border-[rgb(var(--color-border))] flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-[rgb(var(--color-text-tertiary))]" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white mb-2">{item.title}</h3>
-                      <p className="text-sm text-[rgb(var(--color-text-secondary))] leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8"><div className="divider" /></div>
-
-      {/* CTA Section */}
-      <section className="py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={stagger}
-            className="max-w-3xl"
-          >
-            <motion.h2
-              variants={fadeUp}
-              className="text-3xl md:text-5xl font-bold leading-tight tracking-tight"
-            >
-              지금 바로 시작하세요.
-              <br />
-              <span className="text-[rgb(var(--color-text-secondary))]">
-                첫 프로젝트는 무료입니다.
+              <span className="text-neutral-400">
+                말로 하면, AI가 디자인합니다.
               </span>
-            </motion.h2>
+            </h2>
+            <p className="text-lg text-neutral-400 leading-relaxed">
+              복잡한 설정창을 뒤질 필요가 없습니다.
+              <br />
+              당신의 의도(Vibe)를 AI가 이해하고 디자인에 즉시 반영합니다.
+            </p>
 
-            <motion.p
-              variants={fadeUp}
-              className="mt-6 text-lg text-[rgb(var(--color-text-secondary))] leading-relaxed"
-            >
-              카드 등록 없이 바로 체험할 수 있습니다.
-              AI가 만드는 상세페이지의 품질을 직접 확인해보세요.
-            </motion.p>
+            <div className="p-6 rounded-2xl glass-card border border-white/10">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                <span className="text-xs text-neutral-600 ml-2 font-mono">
+                  vibe-terminal
+                </span>
+              </div>
+              <TypewriterEffect />
+            </div>
+          </motion.div>
 
-            <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
-              <Link href="/signup" className="btn-primary text-base px-8 py-3.5">
-                무료로 시작하기
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-6 text-sm text-[rgb(var(--color-text-tertiary))]"
-            >
-              문의: contact@autopage.ai
-            </motion.p>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex-1 relative w-full"
+          >
+            <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/30 to-cyan-500/30 rounded-2xl blur-3xl opacity-40" />
+            <div className="relative rounded-2xl overflow-hidden glass-panel border border-white/10 aspect-[4/3] flex items-center justify-center">
+              <div className="text-center space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-cyan-500 flex items-center justify-center mx-auto">
+                  <Zap className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white font-medium text-lg">
+                  AI가 디자인을 생성하고 있습니다...
+                </p>
+                <div className="flex justify-center gap-1">
+                  {[0, 1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className="w-2 h-2 rounded-full bg-violet-400 animate-pulse"
+                      style={{ animationDelay: `${i * 0.3}s` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
-    </main>
+
+      {/* ===== CTA ===== */}
+      <section className="py-32 md:py-40 border-t border-white/5 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_110%,rgba(124,58,237,0.15),transparent)] pointer-events-none" />
+        <div className="max-w-4xl mx-auto text-center px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight leading-tight">
+              전문가급 상세페이지,
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400">
+                오늘 바로 소유하세요.
+              </span>
+            </h2>
+            <p className="text-xl text-neutral-400 mb-12 leading-relaxed">
+              카드 등록 없이 무료로 시작할 수 있습니다.
+            </p>
+            <Link
+              href="/new"
+              className="inline-flex h-16 px-10 items-center justify-center rounded-full bg-white text-black text-lg font-bold tracking-tight hover:scale-105 transition-all duration-300 hover:shadow-[0_0_40px_rgba(255,255,255,0.25)]"
+            >
+              지금 무료로 시작하기
+              <ArrowRight className="ml-3 w-5 h-5" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 }

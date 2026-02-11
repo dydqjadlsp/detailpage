@@ -105,7 +105,7 @@ export default function SignupPage() {
                         <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
                             <Terminal className="w-4 h-4 text-[rgb(var(--color-background))]" />
                         </div>
-                        <span className="font-bold text-lg tracking-tight text-white">AutoPage</span>
+                        <span className="font-bold text-lg tracking-tight text-white">DetailPage</span>
                     </Link>
                     <h1 className="text-2xl font-bold text-white">계정 만들기</h1>
                     <p className="text-sm text-[rgb(var(--color-text-secondary))] mt-2">

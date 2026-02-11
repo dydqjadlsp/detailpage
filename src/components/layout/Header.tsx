@@ -10,6 +10,7 @@ import type { User as SupabaseUser } from '@supabase/supabase-js';
 const NAV_ITEMS = [
     { href: '/dashboard', label: '대시보드' },
     { href: '/new', label: '새 프로젝트' },
+    { href: '/mypage', label: '마이페이지' },
 ];
 
 export default function Header() {
@@ -54,7 +55,7 @@ export default function Header() {
     const displayName = user?.user_metadata?.name || user?.email?.split('@')[0] || '';
 
     return (
-        <header className="glass-technical sticky top-0 z-50">
+        <header className="glass-panel sticky top-0 z-50 border-b border-white/5">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <Link href="/" className="flex items-center gap-2.5 group">
@@ -62,7 +63,7 @@ export default function Header() {
                             <Terminal className="w-3.5 h-3.5 text-[rgb(var(--color-background))]" />
                         </div>
                         <span className="font-bold text-[15px] tracking-tight text-white">
-                            AutoPage
+                            DetailPage
                         </span>
                     </Link>
 

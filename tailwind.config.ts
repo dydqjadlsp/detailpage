@@ -30,6 +30,10 @@ const config: Config = {
 					DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
 					foreground: 'rgb(var(--color-text-inverse) / <alpha-value>)'
 				},
+				muted: {
+					DEFAULT: 'rgb(var(--color-surface-hover) / <alpha-value>)',
+					foreground: 'rgb(var(--color-text-tertiary) / <alpha-value>)'
+				},
 
 				text: {
 					primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
@@ -52,7 +56,59 @@ const config: Config = {
 			fontFamily: {
 				sans: ['var(--font-sans)'],
 				mono: ['var(--font-mono)'],
-			}
+			},
+			animation: {
+				'accordion-down': 'accordion-down 0.2s ease-out',
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				aurora: 'aurora 60s linear infinite',
+				shimmer: 'shimmer 2s linear infinite',
+				meteor: 'meteor 5s linear infinite',
+				'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+				float: 'float 6s ease-in-out infinite',
+			},
+			keyframes: {
+				'accordion-down': {
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' },
+				},
+				'accordion-up': {
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' },
+				},
+				aurora: {
+					from: {
+						backgroundPosition: '50% 50%, 50% 50%',
+					},
+					to: {
+						backgroundPosition: '350% 50%, 350% 50%',
+					},
+				},
+				shimmer: {
+					from: {
+						backgroundPosition: '0 0',
+					},
+					to: {
+						backgroundPosition: '-200% 0',
+					},
+				},
+				meteor: {
+					'0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
+					'70%': { opacity: '1' },
+					'100%': {
+						transform: 'rotate(215deg) translateX(-500px)',
+						opacity: '0',
+					},
+				},
+				'border-beam': {
+					'100%': {
+						'offset-distance': '100%',
+					},
+				},
+				float: {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-20px)' },
+				},
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

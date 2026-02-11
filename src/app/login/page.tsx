@@ -74,7 +74,7 @@ function LoginForm() {
                         <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
                             <Terminal className="w-4 h-4 text-[rgb(var(--color-background))]" />
                         </div>
-                        <span className="font-bold text-lg tracking-tight text-white">AutoPage</span>
+                        <span className="font-bold text-lg tracking-tight text-white">DetailPage</span>
                     </Link>
                     <h1 className="text-2xl font-bold text-white">다시 오신 것을 환영합니다</h1>
                     <p className="text-sm text-[rgb(var(--color-text-secondary))] mt-2">

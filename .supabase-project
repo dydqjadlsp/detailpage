@@ -1,0 +1,5 @@
+# Supabase Project Binding
+# This file binds this workspace to a specific Supabase project
+# AI will only access this project via MCP
+
+SUPABASE_PROJECT_ID=wyuhztsasnmzqypzilkt

@@ -26,12 +26,18 @@ export async function POST(request: Request) {
             return unauthorizedError('프로젝트에 대한 권한이 없습니다');
         }
 
-        const apiKey = process.env.GOOGLE_AI_API_KEY;
-        if (!apiKey) return internalError('AI API 키가 설정되지 않았습니다');
+        const { data: settings } = await supabase
+            .from('user_settings')
+            .select('gemini_api_key')
+            .eq('user_id', user.id)
+            .single();
 
-        const { GoogleGenerativeAI } = await import('@google/generative-ai');
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+        const apiKey = settings?.gemini_api_key;
+        if (!apiKey) return validationError('마이페이지에서 Gemini API 키를 먼저 등록해주세요');
+
+        const { GoogleGenAI } = await import('@google/genai');
+        const ai = new GoogleGenAI({ apiKey });
+
 
         const prompt = `당신은 웹 페이지 디자인 수정 전문가입니다.
 
@@ -56,8 +62,11 @@ ${JSON.stringify(currentPuckData, null, 2)}
   "changes_summary": "변경 사항 요약"
 }`;
 
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
+        const result = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+        });
+        const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
         let parsed;
         try {

@@ -33,7 +33,7 @@ export default function Footer() {
                                 <Terminal className="w-3.5 h-3.5 text-[rgb(var(--color-background))]" />
                             </div>
                             <span className="font-bold text-[15px] tracking-tight text-white">
-                                AutoPage
+                                DetailPage
                             </span>
                         </Link>
                         <p className="text-sm text-[rgb(var(--color-text-tertiary))] leading-relaxed mb-8 max-w-xs">
@@ -42,7 +42,7 @@ export default function Footer() {
                             전문가급 결과물을 몇 분 안에.
                         </p>
                         <div className="text-xs text-[rgb(var(--color-text-tertiary))] font-mono">
-                            &copy; 2024 AutoPage Inc.
+                            &copy; 2024 DetailPage Inc.
                         </div>
                     </div>
 

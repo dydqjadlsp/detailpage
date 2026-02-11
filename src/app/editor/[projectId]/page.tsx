@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { Save, ArrowLeft, Monitor, Smartphone, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import type { PuckData } from '@/types';
-import { PUCK_COMPONENTS } from '@/components/puck/PuckComponents';
+import { PUCK_COMPONENTS, getFallbackComponent } from '@/components/puck';
 
 type ViewMode = 'desktop' | 'mobile';
 
@@ -123,8 +123,7 @@ export default function EditorPage() {
                     style={{ maxHeight: 'calc(100vh - 120px)' }}
                 >
                     {puckData?.content?.map((component) => {
-                        const Component = PUCK_COMPONENTS[component.type];
-                        if (!Component) return null;
+                        const Component = PUCK_COMPONENTS[component.type] || getFallbackComponent();
                         return (
                             <div key={component.props.id}>
                                 {Component.render(component.props)}
