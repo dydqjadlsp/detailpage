@@ -55,14 +55,14 @@ export default function Header() {
     const displayName = user?.user_metadata?.name || user?.email?.split('@')[0] || '';
 
     return (
-        <header className="glass-panel sticky top-0 z-50 border-b border-white/5">
+        <header className="glass-panel sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     <Link href="/" className="flex items-center gap-2.5 group">
-                        <div className="w-7 h-7 bg-white rounded flex items-center justify-center">
-                            <Terminal className="w-3.5 h-3.5 text-[rgb(var(--color-background))]" />
+                        <div className="w-7 h-7 bg-[rgb(var(--color-text-primary))] rounded flex items-center justify-center">
+                            <Terminal className="w-3.5 h-3.5 text-white" />
                         </div>
-                        <span className="font-bold text-[15px] tracking-tight text-white">
+                        <span className="font-bold text-[15px] tracking-tight text-[rgb(var(--color-text-primary))]">
                             DetailPage
                         </span>
                     </Link>
@@ -76,8 +76,8 @@ export default function Header() {
                                         key={item.href}
                                         href={item.href}
                                         className={`text-sm transition-colors ${isActive
-                                            ? 'text-white'
-                                            : 'text-[rgb(var(--color-text-secondary))] hover:text-white'
+                                            ? 'text-[rgb(var(--color-text-primary))] font-semibold'
+                                            : 'text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))]'
                                             }`}
                                     >
                                         {item.label}
@@ -86,13 +86,13 @@ export default function Header() {
                             })
                         ) : (
                             <>
-                                <Link href="#features" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors">
+                                <Link href="#features" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
                                     서비스
                                 </Link>
-                                <Link href="#cases" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors">
+                                <Link href="#cases" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
                                     활용 사례
                                 </Link>
-                                <Link href="#security" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors">
+                                <Link href="#security" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
                                     보안
                                 </Link>
                             </>
@@ -111,7 +111,7 @@ export default function Header() {
                                 <button
                                     type="button"
                                     onClick={handleSignOut}
-                                    className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors flex items-center gap-1.5"
+                                    className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors flex items-center gap-1.5"
                                 >
                                     <LogOut className="w-3.5 h-3.5" />
                                     로그아웃
@@ -119,7 +119,7 @@ export default function Header() {
                             </>
                         ) : (
                             <>
-                                <Link href="/login" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors">
+                                <Link href="/login" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
                                     로그인
                                 </Link>
                                 <Link href="/signup" className="btn-primary px-5 py-2 text-sm">
@@ -131,7 +131,7 @@ export default function Header() {
 
                     <button
                         type="button"
-                        className="md:hidden p-2 text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors"
+                        className="md:hidden p-2 text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
                         {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -147,7 +147,7 @@ export default function Header() {
                                 <Link
                                     key={item.href}
                                     href={item.href}
-                                    className="block py-2.5 text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors"
+                                    className="block py-2.5 text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     {item.label}

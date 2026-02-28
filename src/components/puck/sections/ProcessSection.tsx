@@ -26,35 +26,31 @@ export function ProcessSection({
                     </div>
                 )}
 
-                <div className="relative">
-                    <div
-                        className="absolute left-6 top-0 bottom-0 w-0.5"
-                        style={{
-                            backgroundColor: textColor ? `${textColor}15` : 'rgba(0,0,0,0.08)',
-                        }}
-                    />
-
-                    <div className="space-y-10">
-                        {items.map((item, i) => (
-                            <div key={i} className="relative flex gap-6 pl-1">
-                                <div
-                                    className="relative z-10 w-12 h-12 rounded-full flex items-center justify-center text-lg font-bold shrink-0 shadow-lg"
-                                    style={{
-                                        background: backgroundColor
-                                            ? `linear-gradient(135deg, ${backgroundColor}, ${textColor || '#333'})`
-                                            : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                                        color: '#ffffff',
-                                    }}
-                                >
-                                    {i + 1}
-                                </div>
-                                <div className="pt-2">
-                                    <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                                    <p className="text-sm leading-relaxed opacity-65">{item.description}</p>
-                                </div>
+                <div className="space-y-8">
+                    {items.map((item, i) => (
+                        <div key={i} className="flex items-start gap-5">
+                            <span
+                                className="text-4xl font-extrabold shrink-0 leading-none mt-1 tabular-nums"
+                                style={{
+                                    color: textColor || '#6366f1',
+                                    opacity: 0.25,
+                                }}
+                            >
+                                {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <div
+                                className="flex-1 pb-8"
+                                style={{
+                                    borderBottom: i < items.length - 1
+                                        ? `1px solid ${textColor ? `${textColor}12` : 'rgba(0,0,0,0.06)'}`
+                                        : 'none',
+                                }}
+                            >
+                                <h3 className="text-lg font-bold mb-1.5">{item.title}</h3>
+                                <p className="text-sm leading-relaxed opacity-65">{item.description}</p>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </SectionWrapper>

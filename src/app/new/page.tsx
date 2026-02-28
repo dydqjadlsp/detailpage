@@ -17,19 +17,8 @@ const stagger = {
     },
 };
 
-const CATEGORY_COLORS: Record<string, string> = {
-    ecommerce: '#F59E0B',
-    realestate: '#3B82F6',
-    medical: '#10B981',
-    education: '#8B5CF6',
-    restaurant: '#EF4444',
-    travel: '#06B6D4',
-    wedding: '#EC4899',
-    legal: '#6366F1',
-    fitness: '#F97316',
-    saas: '#7C3AED',
-    personal: '#14B8A6',
-};
+const ICON_COLOR = '#64748B';
+const ICON_BG = 'rgba(100, 116, 139, 0.08)';
 
 export default function NewProjectPage() {
     return (
@@ -56,7 +45,6 @@ export default function NewProjectPage() {
             >
                 {CATEGORIES.filter((c) => c.isActive).map((category) => {
                     const Icon = CATEGORY_ICONS[category.icon];
-                    const color = CATEGORY_COLORS[category.id] ?? '#7C3AED';
 
                     return (
                         <motion.div key={category.id} variants={fadeInUp}>
@@ -64,8 +52,8 @@ export default function NewProjectPage() {
                                 <div className="card p-6 group h-full">
                                     <div className="flex items-start gap-4">
                                         <div
-                                            className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110"
-                                            style={{ backgroundColor: `${color}15`, color }}
+                                            className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all group-hover:scale-110 group-hover:bg-amber-50 group-hover:text-amber-600"
+                                            style={{ backgroundColor: ICON_BG, color: ICON_COLOR }}
                                         >
                                             {Icon && <Icon className="w-6 h-6" />}
                                         </div>

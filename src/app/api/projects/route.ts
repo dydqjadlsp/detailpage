@@ -4,7 +4,7 @@ import { unauthorizedError, internalError } from '@/lib/errors';
 
 export async function GET() {
     try {
-        const supabase = createClient();
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
 
         const { data: { user } } = await supabase.auth.getUser();
@@ -16,7 +16,7 @@ export async function GET() {
             .eq('user_id', user.id)
             .order('updated_at', { ascending: false });
 
-        if (error) return internalError(error.message);
+        if (error) return internalError();
 
         return NextResponse.json({
             ok: true,
@@ -40,7 +40,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        const supabase = createClient();
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
 
         const { data: { user } } = await supabase.auth.getUser();
@@ -66,7 +66,7 @@ export async function POST(request: Request) {
             .select()
             .single();
 
-        if (error) return internalError(error.message);
+        if (error) return internalError();
 
         return NextResponse.json({
             ok: true,

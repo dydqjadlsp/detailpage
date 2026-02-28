@@ -22,15 +22,22 @@ export function createAdminClient() {
     return adminClient;
 }
 
-let bucketInitialized = false;
+const verifiedBuckets = new Set<string>();
 
 export async function ensureStorageBucket(bucketName: string) {
-    if (bucketInitialized) return;
+    if (verifiedBuckets.has(bucketName)) return;
 
     const admin = createAdminClient();
-    if (!admin) return;
+    if (!admin) {
+        throw new Error('Admin client 없음 - SUPABASE_SERVICE_ROLE_KEY 확인 필요');
+    }
 
-    const { data: buckets } = await admin.storage.listBuckets();
+    const { data: buckets, error: listError } = await admin.storage.listBuckets();
+    if (listError) {
+        console.error(`[storage] 버킷 목록 조회 실패: ${listError.message}`);
+        throw listError;
+    }
+
     const exists = buckets?.some((b) => b.name === bucketName);
 
     if (!exists) {
@@ -40,9 +47,11 @@ export async function ensureStorageBucket(bucketName: string) {
             allowedMimeTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/gif'],
         });
         if (error && !error.message.includes('already exists')) {
-            console.error('Bucket creation failed:', error);
+            console.error(`[storage] 버킷 생성 실패: ${error.message}`);
+            throw error;
         }
     }
 
-    bucketInitialized = true;
+    // 성공했을 때만 캐싱
+    verifiedBuckets.add(bucketName);
 }

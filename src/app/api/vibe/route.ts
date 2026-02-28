@@ -4,7 +4,7 @@ import { unauthorizedError, validationError, internalError, externalApiError } f
 
 export async function POST(request: Request) {
     try {
-        const supabase = createClient();
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return unauthorizedError();
@@ -92,8 +92,7 @@ ${JSON.stringify(currentPuckData, null, 2)}
                 changesSummary: parsed.changes_summary || '수정 완료',
             },
         });
-    } catch (err) {
-        const message = err instanceof Error ? err.message : '알 수 없는 오류';
-        return internalError(message);
+    } catch {
+        return internalError();
     }
 }

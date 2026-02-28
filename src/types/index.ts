@@ -61,10 +61,12 @@ export interface Category {
 export interface CategoryInputField {
     name: string;
     label: string;
-    type: 'text' | 'textarea' | 'number' | 'select' | 'tags';
+    type: 'text' | 'textarea' | 'number' | 'select' | 'tags' | 'color';
     required: boolean;
     placeholder?: string;
     options?: { value: string; label: string }[];
+    /** 고급 설정 그룹에 표시 (접히는 영역) */
+    advanced?: boolean;
 }
 
 export interface GenerationLog {
@@ -105,3 +107,12 @@ export interface ApiError {
 }
 
 export type ApiResult<T = unknown> = ApiResponse<T> | ApiError;
+
+export interface SectionConfig {
+    id: string;
+    type: string;
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    referenceImageUrl?: string;
+}

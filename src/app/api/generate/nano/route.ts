@@ -73,7 +73,7 @@ async function generateContentWithGemini(apiKey: string) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function POST(_request: Request) {
     try {
-        const supabase = createClient();
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
 
         const { data: { user } } = await supabase.auth.getUser();
@@ -177,7 +177,7 @@ export async function POST(_request: Request) {
 
         if (error) {
             console.error('Project creation failed:', error);
-            return internalError(error.message);
+            return internalError();
         }
 
         return NextResponse.json({

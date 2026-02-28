@@ -4,10 +4,11 @@ import { unauthorizedError, forbiddenError, notFoundError, internalError } from 
 
 export async function GET(
     _request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const supabase = createClient();
+        const { id } = await params;
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return unauthorizedError();
@@ -15,7 +16,7 @@ export async function GET(
         const { data: project, error } = await supabase
             .from('projects')
             .select('*')
-            .eq('id', params.id)
+            .eq('id', id)
             .single();
 
         if (error || !project) return notFoundError('프로젝트를 찾을 수 없습니다');
@@ -41,12 +42,13 @@ export async function GET(
     }
 }
 
-export async function PUT(
+export async function PATCH(
     request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const supabase = createClient();
+        const { id } = await params;
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return unauthorizedError();
@@ -54,7 +56,7 @@ export async function PUT(
         const { data: existing } = await supabase
             .from('projects')
             .select('user_id')
-            .eq('id', params.id)
+            .eq('id', id)
             .single();
 
         if (!existing) return notFoundError('프로젝트를 찾을 수 없습니다');
@@ -71,11 +73,11 @@ export async function PUT(
         const { data: project, error } = await supabase
             .from('projects')
             .update(updates)
-            .eq('id', params.id)
+            .eq('id', id)
             .select()
             .single();
 
-        if (error) return internalError(error.message);
+        if (error) return internalError();
 
         return NextResponse.json({
             ok: true,
@@ -93,10 +95,11 @@ export async function PUT(
 
 export async function DELETE(
     _request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const supabase = createClient();
+        const { id } = await params;
+        const supabase = await createClient();
         if (!supabase) return unauthorizedError();
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) return unauthorizedError();
@@ -104,7 +107,7 @@ export async function DELETE(
         const { data: existing } = await supabase
             .from('projects')
             .select('user_id')
-            .eq('id', params.id)
+            .eq('id', id)
             .single();
 
         if (!existing) return notFoundError('프로젝트를 찾을 수 없습니다');
@@ -113,9 +116,9 @@ export async function DELETE(
         const { error } = await supabase
             .from('projects')
             .delete()
-            .eq('id', params.id);
+            .eq('id', id);
 
-        if (error) return internalError(error.message);
+        if (error) return internalError();
 
         return NextResponse.json({ ok: true, data: { deleted: true } });
     } catch {

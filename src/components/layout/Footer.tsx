@@ -24,15 +24,15 @@ const FOOTER_LINKS = {
 
 export default function Footer() {
     return (
-        <footer className="border-t border-[rgb(var(--color-border))] bg-[rgb(var(--color-background))]">
+        <footer className="border-t border-[rgb(var(--color-border))]">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16">
                     <div className="col-span-2 md:col-span-1">
                         <Link href="/" className="flex items-center gap-2.5 mb-5">
-                            <div className="w-7 h-7 bg-white rounded flex items-center justify-center">
-                                <Terminal className="w-3.5 h-3.5 text-[rgb(var(--color-background))]" />
+                            <div className="w-7 h-7 bg-[rgb(var(--color-text-primary))] rounded flex items-center justify-center">
+                                <Terminal className="w-3.5 h-3.5 text-white" />
                             </div>
-                            <span className="font-bold text-[15px] tracking-tight text-white">
+                            <span className="font-bold text-[15px] tracking-tight text-[rgb(var(--color-text-primary))]">
                                 DetailPage
                             </span>
                         </Link>
@@ -56,7 +56,7 @@ export default function Footer() {
                                     <li key={link.label}>
                                         <Link
                                             href={link.href}
-                                            className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-white transition-colors"
+                                            className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors"
                                         >
                                             {link.label}
                                         </Link>

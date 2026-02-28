@@ -44,7 +44,7 @@ export default function EditorPage() {
         setIsSaving(true);
         try {
             await fetch(`/api/projects/${projectId}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ puckData }),
             });
@@ -118,9 +118,9 @@ export default function EditorPage() {
 
             <div className="flex-1 p-4 sm:p-8 flex justify-center">
                 <div
-                    className={`bg-white rounded-xl shadow-xl overflow-y-auto transition-all duration-300 ${viewMode === 'mobile' ? 'max-w-[375px]' : 'max-w-[1200px]'
+                    className={`bg-white shadow-xl overflow-y-auto overflow-x-hidden transition-all duration-300 ${viewMode === 'mobile' ? 'max-w-[375px]' : 'max-w-[860px]'
                         } w-full`}
-                    style={{ maxHeight: 'calc(100vh - 120px)' }}
+                    style={{ maxHeight: 'calc(100vh - 120px)', color: '#1a1a1a' }}
                 >
                     {puckData?.content?.map((component) => {
                         const Component = PUCK_COMPONENTS[component.type] || getFallbackComponent();

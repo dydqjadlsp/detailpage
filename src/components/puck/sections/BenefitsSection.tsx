@@ -1,7 +1,7 @@
 'use client';
 
 import type { BaseSectionProps, SectionItem } from '../types';
-import { SectionWrapper, SectionImage } from '../SectionWrapper';
+import { SectionWrapper, SectionImage, getContrastText } from '../SectionWrapper';
 
 interface BenefitsSectionProps extends BaseSectionProps {
     items: SectionItem[];
@@ -40,31 +40,36 @@ export function BenefitsSection({
                     )}
 
                     <div className="space-y-6">
-                        {items.map((item, i) => (
-                            <div
-                                key={i}
-                                className="flex gap-5 p-5 rounded-xl transition-all duration-300 hover:shadow-md"
-                                style={{
-                                    backgroundColor: textColor ? `${textColor}06` : 'rgba(0,0,0,0.03)',
-                                }}
-                            >
+                        {items.map((item, i) => {
+                            const hasIcon = item.icon && item.icon.trim().length > 0;
+                            return (
                                 <div
-                                    className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 text-sm font-bold"
+                                    key={i}
+                                    className="flex gap-5 p-5 rounded-xl transition-all duration-300 hover:shadow-md"
                                     style={{
-                                        background: backgroundColor
-                                            ? `linear-gradient(135deg, ${backgroundColor}, ${textColor || '#333'})`
-                                            : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                                        color: '#ffffff',
+                                        backgroundColor: textColor ? `${textColor}06` : 'rgba(0,0,0,0.03)',
                                     }}
                                 >
-                                    {i + 1}
+                                    <div
+                                        className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0"
+                                        style={{
+                                            background: backgroundColor
+                                                ? `linear-gradient(135deg, ${backgroundColor}, ${textColor || '#333'})`
+                                                : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                                            color: getContrastText(backgroundColor || '#6366f1'),
+                                            fontSize: hasIcon ? '24px' : '16px',
+                                            fontWeight: hasIcon ? 400 : 700,
+                                        }}
+                                    >
+                                        {hasIcon ? item.icon : i + 1}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold mb-1.5">{item.title}</h3>
+                                        <p className="text-sm leading-relaxed opacity-65">{item.description}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 className="font-bold mb-1.5">{item.title}</h3>
-                                    <p className="text-sm leading-relaxed opacity-65">{item.description}</p>
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     {hasImage && showImageRight && (

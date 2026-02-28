@@ -48,17 +48,18 @@ export default function ProjectPage() {
     }
 
     return (
-        <main className="min-h-screen bg-[rgb(var(--color-background))]">
-            {puckData.content.map((component: { type: string; props: Record<string, unknown> }, i: number) => {
-                const Component = PUCK_COMPONENTS[component.type] || getFallbackComponent();
-                // Ensure unique key
-                const key = (component.props.id as string) || `component-${i}`;
-                return (
-                    <div key={key}>
-                        {Component.render(component.props)}
-                    </div>
-                );
-            })}
+        <main className="min-h-screen bg-[rgb(var(--color-background))] flex justify-center">
+            <div className="w-full max-w-[860px] overflow-hidden" style={{ backgroundColor: '#ffffff', color: '#1a1a1a' }}>
+                {puckData.content.map((component: { type: string; props: Record<string, unknown> }, i: number) => {
+                    const Component = PUCK_COMPONENTS[component.type] || getFallbackComponent();
+                    const key = (component.props.id as string) || `component-${i}`;
+                    return (
+                        <div key={key}>
+                            {Component.render(component.props)}
+                        </div>
+                    );
+                })}
+            </div>
         </main>
     );
 }

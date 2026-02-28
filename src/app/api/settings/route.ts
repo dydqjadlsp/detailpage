@@ -1,16 +1,13 @@
 import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
+import { unauthorizedError, validationError, internalError } from '@/lib/errors';
 
 export async function GET() {
-    const supabase = createClient();
-    if (!supabase) {
-        return NextResponse.json({ error: '서비스를 이용할 수 없습니다' }, { status: 503 });
-    }
+    const supabase = await createClient();
+    if (!supabase) return internalError('서비스를 이용할 수 없습니다');
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-        return NextResponse.json({ error: '로그인이 필요합니다' }, { status: 401 });
-    }
+    if (authError || !user) return unauthorizedError();
 
     const { data, error } = await supabase
         .from('user_settings')
@@ -18,33 +15,30 @@ export async function GET() {
         .eq('user_id', user.id)
         .single();
 
-    if (error && error.code !== 'PGRST116') {
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    if (error && error.code !== 'PGRST116') return internalError();
 
     return NextResponse.json({
-        hasApiKey: !!(data?.gemini_api_key),
-        maskedKey: data?.gemini_api_key
-            ? data.gemini_api_key.slice(0, 6) + '...' + data.gemini_api_key.slice(-4)
-            : null,
+        ok: true,
+        data: {
+            hasApiKey: !!(data?.gemini_api_key),
+            maskedKey: data?.gemini_api_key
+                ? data.gemini_api_key.slice(0, 6) + '...' + data.gemini_api_key.slice(-4)
+                : null,
+        },
     });
 }
 
 export async function POST(request: Request) {
-    const supabase = createClient();
-    if (!supabase) {
-        return NextResponse.json({ error: '서비스를 이용할 수 없습니다' }, { status: 503 });
-    }
+    const supabase = await createClient();
+    if (!supabase) return internalError('서비스를 이용할 수 없습니다');
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-        return NextResponse.json({ error: '로그인이 필요합니다' }, { status: 401 });
-    }
+    if (authError || !user) return unauthorizedError();
 
     const { apiKey } = await request.json();
 
     if (!apiKey || typeof apiKey !== 'string' || apiKey.trim().length < 10) {
-        return NextResponse.json({ error: '유효하지 않은 API 키입니다' }, { status: 400 });
+        return validationError('유효하지 않은 API 키입니다');
     }
 
     const { error } = await supabase
@@ -57,32 +51,24 @@ export async function POST(request: Request) {
             onConflict: 'user_id',
         });
 
-    if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    if (error) return internalError();
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ok: true, data: { saved: true } });
 }
 
 export async function DELETE() {
-    const supabase = createClient();
-    if (!supabase) {
-        return NextResponse.json({ error: '서비스를 이용할 수 없습니다' }, { status: 503 });
-    }
+    const supabase = await createClient();
+    if (!supabase) return internalError('서비스를 이용할 수 없습니다');
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-        return NextResponse.json({ error: '로그인이 필요합니다' }, { status: 401 });
-    }
+    if (authError || !user) return unauthorizedError();
 
     const { error } = await supabase
         .from('user_settings')
         .delete()
         .eq('user_id', user.id);
 
-    if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    if (error) return internalError();
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ ok: true, data: { deleted: true } });
 }

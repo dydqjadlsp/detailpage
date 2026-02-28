@@ -1,7 +1,7 @@
 'use client';
 
 import type { BaseSectionProps, SectionItem } from '../types';
-import { SectionWrapper, SectionImage } from '../SectionWrapper';
+import { SectionWrapper, SectionImage, getContrastText } from '../SectionWrapper';
 
 interface FeaturesSectionProps extends BaseSectionProps {
     items: SectionItem[];
@@ -34,30 +34,35 @@ export function FeaturesSection({
                 </div>
 
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {items.map((item, i) => (
-                        <div
-                            key={i}
-                            className="group relative p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                            style={{
-                                borderColor: textColor ? `${textColor}15` : 'rgba(0,0,0,0.08)',
-                                backgroundColor: textColor ? `${textColor}05` : 'rgba(0,0,0,0.02)',
-                            }}
-                        >
+                    {items.map((item, i) => {
+                        const hasIcon = item.icon && item.icon.trim().length > 0;
+                        return (
                             <div
-                                className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 text-xl font-bold transition-transform duration-300 group-hover:scale-110"
+                                key={i}
+                                className="group relative p-8 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                                 style={{
-                                    background: backgroundColor
-                                        ? `linear-gradient(135deg, ${backgroundColor}, ${textColor || '#333'})`
-                                        : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                                    color: '#ffffff',
+                                    borderColor: textColor ? `${textColor}15` : 'rgba(0,0,0,0.08)',
+                                    backgroundColor: textColor ? `${textColor}05` : 'rgba(0,0,0,0.02)',
                                 }}
                             >
-                                {i + 1}
+                                <div
+                                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
+                                    style={{
+                                        background: backgroundColor
+                                            ? `linear-gradient(135deg, ${backgroundColor}, ${textColor || '#333'})`
+                                            : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                                        color: getContrastText(backgroundColor || '#6366f1'),
+                                        fontSize: hasIcon ? '28px' : '20px',
+                                        fontWeight: hasIcon ? 400 : 700,
+                                    }}
+                                >
+                                    {hasIcon ? item.icon : i + 1}
+                                </div>
+                                <h3 className="text-lg font-bold mb-3">{item.title}</h3>
+                                <p className="text-sm leading-relaxed opacity-65">{item.description}</p>
                             </div>
-                            <h3 className="text-lg font-bold mb-3">{item.title}</h3>
-                            <p className="text-sm leading-relaxed opacity-65">{item.description}</p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </SectionWrapper>

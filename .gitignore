@@ -1,3 +1,7 @@
+# screenshots
+cap.png
+cap.ps1
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -60,7 +64,9 @@ node_modules/
 # AI / Editor metadata
 .taskmaster/
 .cursor/
+.claude/
 .gemini/
+.mcp.json
 
 # Internal docs (not for public)
 docs/
@@ -69,3 +75,23 @@ prd/
 
 # Build script
 run_build.bat
+
+# Temp / debug data files
+_figma_detail.json
+_figma_node.json
+_local_full.txt
+local_full.txt
+figma3.json
+commit-msg.txt
+
+# Playwright MCP
+.playwright-mcp/
+
+# Figma plugin (separate project)
+figma-plugin-extended/
+
+# Dev scripts (not for production)
+scripts/
+
+# Agent rules (not for public)
+AGENTS.md

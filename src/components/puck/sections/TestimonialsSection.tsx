@@ -55,8 +55,11 @@ export function TestimonialsSection({
 
                                 <div className="flex items-center gap-3">
                                     <div
-                                        className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-sm"
-                                        style={{ background: `linear-gradient(135deg, hsl(${hue}, 70%, 55%), hsl(${hue + 30}, 70%, 45%))` }}
+                                        className="w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm"
+                                        style={{
+                                            background: `linear-gradient(135deg, hsl(${hue}, 70%, 55%), hsl(${hue + 30}, 70%, 45%))`,
+                                            color: '#ffffff',
+                                        }}
                                     >
                                         {initial}
                                     </div>
