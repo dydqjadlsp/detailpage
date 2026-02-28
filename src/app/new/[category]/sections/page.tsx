@@ -158,7 +158,7 @@ export default function SectionBuilderPage() {
                 {/* Header */}
                 <Link
                     href={`/new/${categoryId}`}
-                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-8"
+                    className="inline-flex items-center gap-2 text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
                 >
                     <ArrowLeft className="w-4 h-4" />
                     기본 입력으로 돌아가기
@@ -178,7 +178,7 @@ export default function SectionBuilderPage() {
                         </div>
                         <div className="flex-1">
                             <h1 className="text-2xl font-bold">섹션 빌더</h1>
-                            <p className="text-neutral-400 text-sm">
+                            <p className="text-[rgb(var(--color-text-secondary))] text-sm">
                                 {category.name} - 섹션별로 텍스트와 참고 이미지를 지정하세요
                             </p>
                         </div>
@@ -187,7 +187,7 @@ export default function SectionBuilderPage() {
                     <form onSubmit={handleSubmit}>
                         {/* Section count + Add button */}
                         <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center gap-2 text-sm text-neutral-400">
+                            <div className="flex items-center gap-2 text-sm text-[rgb(var(--color-text-secondary))]">
                                 <Layers className="w-4 h-4" />
                                 <span>
                                     섹션 {state.sections.length}개 / 최대 {MAX_SECTIONS}개
@@ -243,7 +243,7 @@ export default function SectionBuilderPage() {
                             <button
                                 type="button"
                                 onClick={handleAdd}
-                                className="w-full py-3 rounded-xl border-2 border-dashed border-white/10 hover:border-white/20 text-neutral-500 hover:text-neutral-300 text-sm transition-colors flex items-center justify-center gap-2 mb-6"
+                                className="w-full py-3 rounded-xl border-2 border-dashed border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))]/80 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-secondary))] text-sm transition-colors flex items-center justify-center gap-2 mb-6"
                             >
                                 <Plus className="w-4 h-4" />
                                 섹션 추가
@@ -272,7 +272,7 @@ export default function SectionBuilderPage() {
                                             className={`p-2 rounded-lg text-center transition-all border text-sm font-bold ${
                                                 pixelHeight === opt.value
                                                     ? 'border-current bg-current/10'
-                                                    : 'border-white/10 hover:border-white/20 bg-white/5'
+                                                    : 'border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))]/80 bg-[rgb(var(--color-surface))]/50'
                                             }`}
                                             style={
                                                 pixelHeight === opt.value
@@ -306,7 +306,7 @@ export default function SectionBuilderPage() {
                                             className={`p-2 rounded-lg text-center transition-all border text-sm font-bold ${
                                                 canvasWidth === opt.value
                                                     ? 'border-current bg-current/10'
-                                                    : 'border-white/10 hover:border-white/20 bg-white/5'
+                                                    : 'border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))]/80 bg-[rgb(var(--color-surface))]/50'
                                             }`}
                                             style={
                                                 canvasWidth === opt.value
@@ -341,7 +341,7 @@ export default function SectionBuilderPage() {
                         </button>
 
                         {error && (
-                            <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400">
+                            <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
                                 {error}
                             </div>
                         )}

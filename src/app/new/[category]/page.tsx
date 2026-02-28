@@ -437,7 +437,7 @@ export default function CategoryInputPage() {
                             type="button"
                             disabled={generatingField === field.name}
                             onClick={() => handleGenerateDescription(field.name)}
-                            className="absolute top-2 right-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-violet-500/10 text-violet-400 border border-violet-500/20 hover:bg-violet-500/20 hover:text-violet-300 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="absolute top-2 right-2 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-amber-500/10 text-amber-600 border border-amber-500/20 hover:bg-amber-500/20 hover:text-amber-500 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                         >
                             {generatingField === field.name ? (
                                 <>
@@ -498,13 +498,13 @@ export default function CategoryInputPage() {
                                 {((formData[field.name] as string[]) || []).map((tag, i) => (
                                     <span
                                         key={`${tag}-${i}`}
-                                        className="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20"
+                                        className="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20"
                                     >
                                         {tag}
                                         <button
                                             type="button"
                                             onClick={() => handleTagRemove(field.name, i)}
-                                            className="hover:text-red-400 transition-colors"
+                                            className="hover:text-red-600 transition-colors"
                                         >
                                             <X className="w-3 h-3" />
                                         </button>
@@ -519,7 +519,7 @@ export default function CategoryInputPage() {
                     <div className="flex gap-2 items-center">
                         <input
                             type="color"
-                            className="w-10 h-10 rounded-lg border border-white/10 bg-transparent cursor-pointer"
+                            className="w-10 h-10 rounded-lg border border-[rgb(var(--color-border))] bg-transparent cursor-pointer"
                             value={(formData[field.name] as string) || field.placeholder || '#7C3AED'}
                             onChange={(e) => handleChange(field.name, e.target.value)}
                         />
@@ -556,11 +556,11 @@ export default function CategoryInputPage() {
     return (
         <div className={`min-h-screen transition-all duration-500 ${isGenerating ? 'flex' : ''}`}>
             {/* Left: Form */}
-            <div className={`transition-all duration-500 ${isGenerating ? 'w-1/2 border-r border-white/5' : 'w-full'}`}>
+            <div className={`transition-all duration-500 ${isGenerating ? 'w-1/2 border-r border-[rgb(var(--color-border))]/50' : 'w-full'}`}>
                 <div className={`mx-auto px-4 py-8 sm:py-12 ${isGenerating ? 'max-w-xl' : 'max-w-2xl'}`}>
                     <Link
                         href="/new"
-                        className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-8"
+                        className="inline-flex items-center gap-2 text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
                     >
                         <ArrowLeft className="w-4 h-4" />
                         카테고리 선택
@@ -580,7 +580,7 @@ export default function CategoryInputPage() {
                             </div>
                             <div className="flex-1">
                                 <h1 className="text-2xl font-bold">{category.name}</h1>
-                                <p className="text-neutral-400 text-sm">
+                                <p className="text-[rgb(var(--color-text-secondary))] text-sm">
                                     {category.description}
                                 </p>
                             </div>
@@ -607,7 +607,7 @@ export default function CategoryInputPage() {
                                     <label className="block text-sm font-semibold mb-2">
                                         {field.label}
                                         {field.required && (
-                                            <span className="text-red-400 ml-1">*</span>
+                                            <span className="text-red-600 ml-1">*</span>
                                         )}
                                     </label>
                                     {renderField(field)}
@@ -615,11 +615,11 @@ export default function CategoryInputPage() {
                             ))}
 
                             {advancedFields.length > 0 && (
-                                <div className="pt-4 border-t border-white/5">
+                                <div className="pt-4 border-t border-[rgb(var(--color-border))]/50">
                                     <button
                                         type="button"
                                         onClick={() => setShowAdvanced(!showAdvanced)}
-                                        className="flex items-center gap-2 text-sm font-semibold text-neutral-400 hover:text-white transition-colors w-full"
+                                        className="flex items-center gap-2 text-sm font-semibold text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors w-full"
                                     >
                                         <ChevronDown className={`w-4 h-4 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
                                         고급 설정 ({advancedFields.length}개 항목)
@@ -646,7 +646,7 @@ export default function CategoryInputPage() {
                                                                         type="button"
                                                                         disabled={isParsingReference || !(formData['referenceUrl'] as string)?.trim()}
                                                                         onClick={handleParseReference}
-                                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 hover:text-blue-300 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500/10 text-blue-600 border border-blue-500/20 hover:bg-blue-500/20 hover:text-blue-500 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                                                                     >
                                                                         {isParsingReference ? (
                                                                             <>
@@ -661,7 +661,7 @@ export default function CategoryInputPage() {
                                                                         )}
                                                                     </button>
                                                                     {referenceData && (
-                                                                        <span className="inline-flex items-center gap-1 text-xs text-emerald-400">
+                                                                        <span className="inline-flex items-center gap-1 text-xs text-emerald-600">
                                                                             <CheckCircle className="w-3 h-3" />
                                                                             분석 완료
                                                                         </span>
@@ -677,7 +677,7 @@ export default function CategoryInputPage() {
                                 </div>
                             )}
 
-                            <div className="pt-2 border-t border-white/5">
+                            <div className="pt-2 border-t border-[rgb(var(--color-border))]/50">
                                 <label className="flex items-center gap-2 text-sm font-semibold mb-3">
                                     <Ruler className="w-4 h-4" style={{ color }} />
                                     페이지 높이
@@ -696,21 +696,21 @@ export default function CategoryInputPage() {
                                             onClick={() => setPixelHeight(opt.value)}
                                             className={`p-2 rounded-lg text-center transition-all border ${pixelHeight === opt.value
                                                 ? 'border-current bg-current/10'
-                                                : 'border-white/10 hover:border-white/20 bg-white/5'
+                                                : 'border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))]/50'
                                                 }`}
                                             style={pixelHeight === opt.value ? { borderColor: color, color } : undefined}
                                         >
                                             <div className="text-sm font-bold">{opt.label}</div>
-                                            <div className="text-[10px] text-neutral-500">{opt.desc}</div>
+                                            <div className="text-[10px] text-[rgb(var(--color-text-tertiary))]">{opt.desc}</div>
                                         </button>
                                     ))}
                                 </div>
-                                <p className="text-xs text-neutral-500 mt-2">
+                                <p className="text-xs text-[rgb(var(--color-text-tertiary))] mt-2">
                                     {Number(pixelHeight).toLocaleString()}px 높이 / 섹션이 많을수록 더 많은 이미지가 생성됩니다
                                 </p>
                             </div>
 
-                            <div className="pt-2 border-t border-white/5">
+                            <div className="pt-2 border-t border-[rgb(var(--color-border))]/50">
                                 <label className="flex items-center gap-2 text-sm font-semibold mb-3">
                                     <Ruler className="w-4 h-4" style={{ color }} />
                                     가로 폭
@@ -729,16 +729,16 @@ export default function CategoryInputPage() {
                                             onClick={() => setCanvasWidth(opt.value)}
                                             className={`p-2 rounded-lg text-center transition-all border ${canvasWidth === opt.value
                                                 ? 'border-current bg-current/10'
-                                                : 'border-white/10 hover:border-white/20 bg-white/5'
+                                                : 'border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))]/50'
                                                 }`}
                                             style={canvasWidth === opt.value ? { borderColor: color, color } : undefined}
                                         >
                                             <div className="text-sm font-bold">{opt.label}</div>
-                                            <div className="text-[10px] text-neutral-500">{opt.desc}</div>
+                                            <div className="text-[10px] text-[rgb(var(--color-text-tertiary))]">{opt.desc}</div>
                                         </button>
                                     ))}
                                 </div>
-                                <p className="text-xs text-neutral-500 mt-2">
+                                <p className="text-xs text-[rgb(var(--color-text-tertiary))] mt-2">
                                     {canvasWidth}px / 네이버 상세페이지는 790, 쿠팡은 860 권장
                                 </p>
                             </div>
@@ -764,7 +764,7 @@ export default function CategoryInputPage() {
                             </div>
 
                             {error && (
-                                <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400">
+                                <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600">
                                     {error}
                                 </div>
                             )}
@@ -773,27 +773,27 @@ export default function CategoryInputPage() {
                         {/* 섹션 빌더 */}
                         <Link
                             href={`/new/${categoryId}/sections`}
-                            className="mt-6 block glass-card rounded-2xl p-6 hover:bg-white/[0.04] transition-colors group"
+                            className="mt-6 block glass-card rounded-2xl p-6 hover:bg-[rgb(var(--color-surface))]/80 transition-colors group"
                         >
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h3 className="text-sm font-semibold text-neutral-300 mb-1">
+                                    <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-1">
                                         섹션별 커스텀
                                     </h3>
-                                    <p className="text-xs text-neutral-500">
+                                    <p className="text-xs text-[rgb(var(--color-text-tertiary))]">
                                         섹션별로 텍스트와 참고 이미지를 직접 지정하여 생성합니다
                                     </p>
                                 </div>
-                                <ArrowLeft className="w-4 h-4 text-neutral-500 rotate-180 group-hover:translate-x-1 transition-transform" />
+                                <ArrowLeft className="w-4 h-4 text-[rgb(var(--color-text-tertiary))] rotate-180 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </Link>
 
                         {/* 피그마 내보내기 */}
                         <div className="mt-4 glass-card rounded-2xl p-6">
-                            <h3 className="text-sm font-semibold text-neutral-300 mb-3">
+                            <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-3">
                                 피그마에 직접 만들기
                             </h3>
-                            <p className="text-xs text-neutral-500 mb-4">
+                            <p className="text-xs text-[rgb(var(--color-text-tertiary))] mb-4">
                                 피그마 플러그인에 연결하면 피그마에서 직접 상세페이지를 생성합니다.
                             </p>
                             <FigmaExportButton
@@ -822,16 +822,16 @@ export default function CategoryInputPage() {
                             {/* Preview Header */}
                             <div className="mb-8">
                                 <div className="flex items-center justify-between mb-4">
-                                    <h2 className="text-lg font-bold text-white">
+                                    <h2 className="text-lg font-bold text-[rgb(var(--color-text-primary))]">
                                         Preview
                                     </h2>
-                                    <span className="text-xs font-mono text-violet-400 bg-violet-500/10 px-2 py-1 rounded">
+                                    <span className="text-xs font-mono text-amber-600 bg-amber-500/10 px-2 py-1 rounded">
                                         {progressPercent}%
                                     </span>
                                 </div>
 
                                 {/* Progress Bar */}
-                                <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <div className="w-full h-1.5 bg-[rgb(var(--color-surface))]/50 rounded-full overflow-hidden">
                                     <motion.div
                                         className="h-full rounded-full"
                                         style={{
@@ -861,17 +861,17 @@ export default function CategoryInputPage() {
                                             }}
                                             transition={{ delay: index * 0.1, duration: 0.3 }}
                                             className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isCurrent
-                                                ? 'bg-violet-500/10 border border-violet-500/20'
+                                                ? 'bg-amber-500/10 border border-amber-500/20'
                                                 : isCompleted
-                                                    ? 'bg-white/5 border border-white/5'
+                                                    ? 'bg-[rgb(var(--color-surface))]/50 border border-[rgb(var(--color-border))]/50'
                                                     : 'border border-transparent'
                                                 }`}
                                         >
                                             <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isCompleted
-                                                ? 'bg-emerald-500/20 text-emerald-400'
+                                                ? 'bg-emerald-500/20 text-emerald-600'
                                                 : isCurrent
-                                                    ? 'bg-violet-500/20 text-violet-400'
-                                                    : 'bg-white/5 text-neutral-600'
+                                                    ? 'bg-amber-500/20 text-amber-600'
+                                                    : 'bg-[rgb(var(--color-surface))]/50 text-[rgb(var(--color-text-secondary))]'
                                                 }`}>
                                                 {isCompleted ? (
                                                     <CheckCircle className="w-4 h-4" />
@@ -882,10 +882,10 @@ export default function CategoryInputPage() {
                                                 )}
                                             </div>
                                             <span className={`text-sm font-medium ${isCompleted
-                                                ? 'text-emerald-400'
+                                                ? 'text-emerald-600'
                                                 : isCurrent
-                                                    ? 'text-white'
-                                                    : 'text-neutral-600'
+                                                    ? 'text-[rgb(var(--color-text-primary))]'
+                                                    : 'text-[rgb(var(--color-text-secondary))]'
                                                 }`}>
                                                 {step.label}
                                             </span>
@@ -897,7 +897,7 @@ export default function CategoryInputPage() {
                             {/* Section Preview Cards */}
                             {generatedSections.length > 0 && (
                                 <div>
-                                    <h3 className="text-sm font-semibold text-neutral-400 mb-3">
+                                    <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-3">
                                         생성된 섹션
                                     </h3>
                                     <div className="space-y-3">
@@ -920,19 +920,19 @@ export default function CategoryInputPage() {
                                                         {section.type}
                                                     </span>
                                                 </div>
-                                                <p className="text-sm text-white font-medium">
+                                                <p className="text-sm text-[rgb(var(--color-text-primary))] font-medium">
                                                     {section.title}
                                                 </p>
                                                 {section.subtitle && (
-                                                    <p className="text-xs text-neutral-500 mt-1">
+                                                    <p className="text-xs text-[rgb(var(--color-text-tertiary))] mt-1">
                                                         {section.subtitle}
                                                     </p>
                                                 )}
                                                 {/* Section skeleton */}
                                                 <div className="mt-3 space-y-2">
-                                                    <div className="h-2 bg-white/5 rounded-full w-3/4" />
-                                                    <div className="h-2 bg-white/5 rounded-full w-1/2" />
-                                                    <div className="h-2 bg-white/5 rounded-full w-5/6" />
+                                                    <div className="h-2 bg-[rgb(var(--color-surface))]/50 rounded-full w-3/4" />
+                                                    <div className="h-2 bg-[rgb(var(--color-surface))]/50 rounded-full w-1/2" />
+                                                    <div className="h-2 bg-[rgb(var(--color-surface))]/50 rounded-full w-5/6" />
                                                 </div>
                                             </motion.div>
                                         ))}
@@ -948,11 +948,11 @@ export default function CategoryInputPage() {
                                     transition={{ delay: 0.3 }}
                                     className="mt-8 text-center p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20"
                                 >
-                                    <CheckCircle className="w-10 h-10 text-emerald-400 mx-auto mb-3" />
-                                    <p className="text-lg font-semibold text-emerald-400">
+                                    <CheckCircle className="w-10 h-10 text-emerald-600 mx-auto mb-3" />
+                                    <p className="text-lg font-semibold text-emerald-600">
                                         Generation Complete
                                     </p>
-                                    <p className="text-sm text-neutral-400 mt-1">
+                                    <p className="text-sm text-[rgb(var(--color-text-secondary))] mt-1">
                                         Moving to editor...
                                     </p>
                                 </motion.div>

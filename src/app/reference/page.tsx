@@ -142,7 +142,7 @@ export default function ReferencePage() {
       <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         <Link
           href="/new"
-          className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
           돌아가기
@@ -155,7 +155,7 @@ export default function ReferencePage() {
         >
           <div className="mb-8">
             <h1 className="text-2xl sm:text-3xl font-bold">참고 상세페이지로 만들기</h1>
-            <p className="text-neutral-400 text-sm mt-2">
+            <p className="text-[rgb(var(--color-text-secondary))] text-sm mt-2">
               잘 만들어진 상세페이지 URL이나 스크린샷을 넣으면 비슷한 스타일로 새로 만들어줍니다.
             </p>
           </div>
@@ -173,8 +173,8 @@ export default function ReferencePage() {
                 className={
                   'flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ' +
                   (activeTab === 'url'
-                    ? 'bg-violet-500/15 text-violet-400 border border-violet-500/30'
-                    : 'bg-white/5 text-neutral-400 border border-white/10 hover:border-white/20')
+                    ? 'bg-amber-500/15 text-amber-600 border border-amber-500/30'
+                    : 'bg-[rgb(var(--color-surface))]/50 text-[rgb(var(--color-text-secondary))] border border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))]/80')
                 }
               >
                 <Globe className="w-4 h-4" />
@@ -189,8 +189,8 @@ export default function ReferencePage() {
                 className={
                   'flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ' +
                   (activeTab === 'image'
-                    ? 'bg-violet-500/15 text-violet-400 border border-violet-500/30'
-                    : 'bg-white/5 text-neutral-400 border border-white/10 hover:border-white/20')
+                    ? 'bg-amber-500/15 text-amber-600 border border-amber-500/30'
+                    : 'bg-[rgb(var(--color-surface))]/50 text-[rgb(var(--color-text-secondary))] border border-[rgb(var(--color-border))] hover:border-[rgb(var(--color-border))]/80')
                 }
               >
                 <ImageIcon className="w-4 h-4" />
@@ -244,8 +244,8 @@ export default function ReferencePage() {
                     className={
                       'relative flex flex-col items-center justify-center gap-3 p-8 rounded-xl border-2 border-dashed cursor-pointer transition-all ' +
                       (imagePreview
-                        ? 'border-violet-500/30 bg-violet-500/5'
-                        : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/[0.07]')
+                        ? 'border-amber-500/30 bg-amber-500/5'
+                        : 'border-[rgb(var(--color-border))] bg-[rgb(var(--color-surface))]/50 hover:border-[rgb(var(--color-border))]/80 hover:bg-[rgb(var(--color-surface))]/70')
                     }
                   >
                     <input
@@ -266,20 +266,20 @@ export default function ReferencePage() {
                           alt="업로드된 이미지 미리보기"
                           className="max-h-48 mx-auto rounded-lg object-contain"
                         />
-                        <p className="text-xs text-neutral-400 text-center mt-3">
+                        <p className="text-xs text-[rgb(var(--color-text-secondary))] text-center mt-3">
                           {imageFile?.name} ({(imageFile!.size / 1024 / 1024).toFixed(1)}MB)
                         </p>
-                        <p className="text-xs text-violet-400 text-center mt-1">
+                        <p className="text-xs text-amber-600 text-center mt-1">
                           클릭하여 다른 이미지 선택
                         </p>
                       </div>
                     ) : (
                       <>
-                        <Upload className="w-8 h-8 text-neutral-500" />
-                        <p className="text-sm text-neutral-400">
+                        <Upload className="w-8 h-8 text-[rgb(var(--color-text-tertiary))]" />
+                        <p className="text-sm text-[rgb(var(--color-text-secondary))]">
                           이미지를 드래그하거나 클릭하여 업로드
                         </p>
-                        <p className="text-xs text-neutral-500">
+                        <p className="text-xs text-[rgb(var(--color-text-tertiary))]">
                           PNG, JPG, WebP / 최대 {MAX_FILE_SIZE_MB}MB
                         </p>
                       </>
@@ -294,7 +294,7 @@ export default function ReferencePage() {
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400"
+                className="flex items-center gap-2 mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-600"
               >
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 {error}
@@ -335,22 +335,22 @@ export default function ReferencePage() {
                 {/* 스크린샷 프리뷰 */}
                 {analysis.screenshot && (
                   <div className="glass-card rounded-2xl p-6">
-                    <h3 className="text-sm font-semibold text-neutral-300 mb-4 flex items-center gap-2">
-                      <Eye className="w-4 h-4 text-violet-400" />
+                    <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-4 flex items-center gap-2">
+                      <Eye className="w-4 h-4 text-amber-600" />
                       스크린샷
                     </h3>
                     <img
                       src={analysis.screenshot}
                       alt="분석된 페이지 스크린샷"
-                      className="w-full rounded-lg border border-white/10"
+                      className="w-full rounded-lg border border-[rgb(var(--color-border))]"
                     />
                   </div>
                 )}
 
                 {/* 색상 팔레트 */}
                 <div className="glass-card rounded-2xl p-6">
-                  <h3 className="text-sm font-semibold text-neutral-300 mb-4 flex items-center gap-2">
-                    <Palette className="w-4 h-4 text-violet-400" />
+                  <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-4 flex items-center gap-2">
+                    <Palette className="w-4 h-4 text-amber-600" />
                     색상 팔레트
                   </h3>
                   <div className="grid grid-cols-5 gap-3">
@@ -359,11 +359,11 @@ export default function ReferencePage() {
                       .map(([name, color]) => (
                       <div key={name} className="text-center">
                         <div
-                          className="w-full aspect-square rounded-xl border border-white/10 mb-2"
+                          className="w-full aspect-square rounded-xl border border-[rgb(var(--color-border))] mb-2"
                           style={{ backgroundColor: color as string }}
                         />
-                        <p className="text-xs text-neutral-400 capitalize">{name}</p>
-                        <p className="text-[10px] text-neutral-500 font-mono">{color as string}</p>
+                        <p className="text-xs text-[rgb(var(--color-text-secondary))] capitalize">{name}</p>
+                        <p className="text-[10px] text-[rgb(var(--color-text-tertiary))] font-mono">{color as string}</p>
                       </div>
                     ))}
                   </div>
@@ -373,33 +373,33 @@ export default function ReferencePage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* 섹션 목록 */}
                   <div className="glass-card rounded-2xl p-6">
-                    <h3 className="text-sm font-semibold text-neutral-300 mb-4 flex items-center gap-2">
-                      <LayoutList className="w-4 h-4 text-violet-400" />
+                    <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-4 flex items-center gap-2">
+                      <LayoutList className="w-4 h-4 text-amber-600" />
                       섹션 구조 ({analysis.sections.length}개)
                     </h3>
                     <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
                       {analysis.sections.map((section, index) => (
                         <div
                           key={`${section.type}-${index}`}
-                          className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5"
+                          className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--color-surface))]/50 border border-[rgb(var(--color-border))]/50"
                         >
                           <div className="flex items-center gap-3">
-                            <span className="w-6 h-6 rounded-lg bg-violet-500/15 text-violet-400 text-xs font-bold flex items-center justify-center">
+                            <span className="w-6 h-6 rounded-lg bg-amber-500/15 text-amber-600 text-xs font-bold flex items-center justify-center">
                               {index + 1}
                             </span>
                             <div>
-                              <p className="text-sm font-medium text-white">{section.type}</p>
-                              <p className="text-[10px] text-neutral-500">{section.layout}</p>
+                              <p className="text-sm font-medium text-[rgb(var(--color-text-primary))]">{section.type}</p>
+                              <p className="text-[10px] text-[rgb(var(--color-text-tertiary))]">{section.layout}</p>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
                             {section.hasImage && (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/10 text-sky-600 border border-sky-500/20">
                                 IMG
                               </span>
                             )}
                             {section.hasText && (
-                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-600 border border-amber-200">
                                 TXT
                               </span>
                             )}
@@ -412,20 +412,20 @@ export default function ReferencePage() {
                   {/* 타이포그래피 + 스타일 */}
                   <div className="space-y-6">
                     <div className="glass-card rounded-2xl p-6">
-                      <h3 className="text-sm font-semibold text-neutral-300 mb-4 flex items-center gap-2">
-                        <Type className="w-4 h-4 text-violet-400" />
+                      <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-4 flex items-center gap-2">
+                        <Type className="w-4 h-4 text-amber-600" />
                         타이포그래피
                       </h3>
                       <div className="space-y-3">
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                          <p className="text-xs text-neutral-500 mb-1">Heading</p>
-                          <p className="text-sm text-white font-medium">
+                        <div className="p-3 rounded-xl bg-[rgb(var(--color-surface))]/50 border border-[rgb(var(--color-border))]/50">
+                          <p className="text-xs text-[rgb(var(--color-text-tertiary))] mb-1">Heading</p>
+                          <p className="text-sm text-[rgb(var(--color-text-primary))] font-medium">
                             {analysis.typography.headingStyle} / {analysis.typography.headingSize}px
                           </p>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                          <p className="text-xs text-neutral-500 mb-1">Body</p>
-                          <p className="text-sm text-white font-medium">
+                        <div className="p-3 rounded-xl bg-[rgb(var(--color-surface))]/50 border border-[rgb(var(--color-border))]/50">
+                          <p className="text-xs text-[rgb(var(--color-text-tertiary))] mb-1">Body</p>
+                          <p className="text-sm text-[rgb(var(--color-text-primary))] font-medium">
                             {analysis.typography.bodyStyle} / {analysis.typography.bodySize}px
                           </p>
                         </div>
@@ -433,15 +433,15 @@ export default function ReferencePage() {
                     </div>
 
                     <div className="glass-card rounded-2xl p-6">
-                      <h3 className="text-sm font-semibold text-neutral-300 mb-4 flex items-center gap-2">
-                        <Paintbrush className="w-4 h-4 text-violet-400" />
+                      <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-4 flex items-center gap-2">
+                        <Paintbrush className="w-4 h-4 text-amber-600" />
                         전체 스타일
                       </h3>
                       <div className="flex items-center gap-2">
-                        <span className="px-3 py-1.5 rounded-lg bg-violet-500/10 text-violet-400 text-sm font-medium border border-violet-500/20">
+                        <span className="px-3 py-1.5 rounded-lg bg-amber-500/10 text-amber-600 text-sm font-medium border border-amber-200">
                           {analysis.overallStyle}
                         </span>
-                        <span className="text-xs text-neutral-500">
+                        <span className="text-xs text-[rgb(var(--color-text-tertiary))]">
                           {analysis.totalHeight.toLocaleString()}px
                         </span>
                       </div>
@@ -451,12 +451,12 @@ export default function ReferencePage() {
 
                 {/* 커스터마이징 */}
                 <div className="glass-card rounded-2xl p-6 sm:p-8">
-                  <h3 className="text-sm font-semibold text-neutral-300 mb-6">
+                  <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))] mb-6">
                     커스터마이징 옵션
                   </h3>
                   <div className="space-y-5">
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-neutral-400">
+                      <label className="block text-sm font-medium mb-2 text-[rgb(var(--color-text-secondary))]">
                         브랜드명
                       </label>
                       <input
@@ -469,7 +469,7 @@ export default function ReferencePage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-neutral-400">
+                      <label className="block text-sm font-medium mb-2 text-[rgb(var(--color-text-secondary))]">
                         브랜드 색상
                       </label>
                       <div className="flex items-center gap-3">
@@ -477,7 +477,7 @@ export default function ReferencePage() {
                           type="color"
                           value={brandColor}
                           onChange={(e) => setBrandColor(e.target.value)}
-                          className="w-10 h-10 rounded-lg border border-white/10 cursor-pointer bg-transparent"
+                          className="w-10 h-10 rounded-lg border border-[rgb(var(--color-border))] cursor-pointer bg-transparent"
                         />
                         <input
                           type="text"
@@ -489,10 +489,10 @@ export default function ReferencePage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/5">
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-[rgb(var(--color-surface))]/50 border border-[rgb(var(--color-border))]/50">
                       <div>
-                        <p className="text-sm font-medium text-white">텍스트 자동 교체</p>
-                        <p className="text-xs text-neutral-500 mt-0.5">
+                        <p className="text-sm font-medium text-[rgb(var(--color-text-primary))]">텍스트 자동 교체</p>
+                        <p className="text-xs text-[rgb(var(--color-text-tertiary))] mt-0.5">
                           원본 텍스트를 브랜드에 맞게 변환합니다
                         </p>
                       </div>
@@ -501,7 +501,7 @@ export default function ReferencePage() {
                         onClick={() => setReplaceText(!replaceText)}
                         className={
                           'relative w-11 h-6 rounded-full transition-colors ' +
-                          (replaceText ? 'bg-violet-500' : 'bg-white/10')
+                          (replaceText ? 'bg-amber-500' : 'bg-[rgb(var(--color-border))]')
                         }
                       >
                         <span
@@ -518,14 +518,14 @@ export default function ReferencePage() {
                 {/* 피그마 내보내기 */}
                 <div className="glass-card rounded-2xl p-6 sm:p-8">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 text-emerald-400" />
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
+                      <CheckCircle className="w-5 h-5 text-emerald-600" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-neutral-300">
+                      <h3 className="text-sm font-semibold text-[rgb(var(--color-text-secondary))]">
                         피그마에 복제하기
                       </h3>
-                      <p className="text-xs text-neutral-500">
+                      <p className="text-xs text-[rgb(var(--color-text-tertiary))]">
                         분석 결과를 바탕으로 피그마에 디자인을 생성합니다
                       </p>
                     </div>
