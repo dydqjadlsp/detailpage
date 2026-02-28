@@ -92,8 +92,8 @@ export default function Header() {
                                 <Link href="/#cases" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
                                     활용 사례
                                 </Link>
-                                <Link href="/#security" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
-                                    보안
+                                <Link href="/new" className="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors">
+                                    새 프로젝트
                                 </Link>
                             </>
                         )}
@@ -157,7 +157,7 @@ export default function Header() {
                             <>
                                 <Link href="/#features" className="block py-2.5 text-sm text-[rgb(var(--color-text-secondary))]" onClick={() => setIsMobileMenuOpen(false)}>서비스</Link>
                                 <Link href="/#cases" className="block py-2.5 text-sm text-[rgb(var(--color-text-secondary))]" onClick={() => setIsMobileMenuOpen(false)}>활용 사례</Link>
-                                <Link href="/#security" className="block py-2.5 text-sm text-[rgb(var(--color-text-secondary))]" onClick={() => setIsMobileMenuOpen(false)}>보안</Link>
+                                <Link href="/new" className="block py-2.5 text-sm text-[rgb(var(--color-text-secondary))]" onClick={() => setIsMobileMenuOpen(false)}>새 프로젝트</Link>
                             </>
                         )}
                         <div className="pt-4 border-t border-[rgb(var(--color-border))] space-y-2">
