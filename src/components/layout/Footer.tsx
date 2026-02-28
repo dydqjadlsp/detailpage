@@ -3,22 +3,15 @@ import { Terminal } from 'lucide-react';
 
 const FOOTER_LINKS = {
     '서비스': [
-        { label: '자동 생성', href: '#features' },
-        { label: '실시간 편집', href: '#features' },
-        { label: '활용 사례', href: '#cases' },
-        { label: '요금제', href: '/pricing' },
+        { label: '자동 생성', href: '/#features' },
+        { label: '활용 사례', href: '/#cases' },
+        { label: '새 프로젝트', href: '/new' },
+        { label: '대시보드', href: '/dashboard' },
     ],
-    '고객지원': [
-        { label: '도움말', href: '/docs' },
-        { label: 'API 문서', href: '/docs/api' },
-        { label: '커뮤니티', href: '/community' },
-        { label: '블로그', href: '/blog' },
-    ],
-    '회사': [
-        { label: '소개', href: '/about' },
-        { label: '채용', href: '/careers' },
-        { label: '이용약관', href: '/terms' },
-        { label: '개인정보처리방침', href: '/privacy' },
+    '시작하기': [
+        { label: '회원가입', href: '/signup' },
+        { label: '로그인', href: '/login' },
+        { label: '마이페이지', href: '/mypage' },
     ],
 };
 

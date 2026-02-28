@@ -142,6 +142,7 @@ export default function LandingPage() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
           className="relative flex flex-col gap-6 items-center justify-center px-4 z-10"
         >
@@ -185,11 +186,11 @@ export default function LandingPage() {
         </motion.div>
       </AuroraBackground>
 
-      {/* ===== Dark→Light Transition ===== */}
-      <div className="h-20 bg-gradient-to-b from-[#050505] to-transparent" />
+      {/* ===== Hero→Content Transition ===== */}
+      <div className="h-24 -mt-24 relative z-20 bg-gradient-to-b from-[#050505] via-[#050505]/60 to-transparent pointer-events-none" />
 
       {/* ===== STATS BAR ===== */}
-      <section className="relative -mt-10">
+      <section className="relative -mt-6">
         <div className="max-w-5xl mx-auto px-4">
           <div className="glass-card rounded-2xl px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
             {STATS.map((stat, i) => (
@@ -215,7 +216,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== FEATURES BENTO GRID ===== */}
-      <section className="py-28 md:py-36 relative">
+      <section id="features" className="py-28 md:py-36 relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(217,119,6,0.06),transparent)] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -256,7 +257,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== VIBE CODING ===== */}
-      <section className="py-28 md:py-36 relative overflow-hidden">
+      <section id="cases" className="py-28 md:py-36 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-100/30 to-transparent pointer-events-none" />
         <Meteors number={15} />
         <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-16 relative z-10">
@@ -326,7 +327,7 @@ export default function LandingPage() {
       </section>
 
       {/* ===== CTA ===== */}
-      <section className="py-32 md:py-40 border-t border-[rgb(var(--color-border))] relative">
+      <section id="security" className="py-32 md:py-40 border-t border-[rgb(var(--color-border))] relative">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_110%,rgba(217,119,6,0.08),transparent)] pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center px-4 relative z-10">
           <motion.div
