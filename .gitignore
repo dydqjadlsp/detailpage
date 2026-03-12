@@ -95,3 +95,8 @@ scripts/
 
 # Agent rules (not for public)
 AGENTS.md
+
+# K 프로젝트 격리
+.git-account
+.supabase-project
+.vercel-project
